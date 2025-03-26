@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filtro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Filtrar Livros</h1>
+    <form id="formFiltro">
+        <input type="text" id="titulo" placeholder="Título">
+        <input type="text" id="autor" placeholder="Autor">
+        <input type="text" id="genero" placeholder="Gênero">
+        <input type="number" id="ano" placeholder="Ano">
+        <button type="submit">Filtrar</button>
+    </form>
+    <div id="resultado"></div>
+    <a href="/">Voltar</a>
+    <script>
+        document.getElementById('formFiltro').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const params = new URLSearchParams();
+            if (document.getElementById('titulo').value) params.append('titulo', document.getElementById('titulo').value);
+            if (document.getElementById('autor').value) params.append('autor', document.getElementById('autor').value);
+            if (document.getElementById('genero').value) params.append('genero', document.getElementById('genero').value);
+            if (document.getElementById('ano').value) params.append('ano', document.getElementById('ano').value);
+            
+            fetch(`/api/livros/filtrar?${params.toString()}`)
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('resultado');
+                    container.innerHTML = '';
+                    data.livros.forEach(livro => {
+                        const div = document.createElement('div');
+                        div.className = 'livro';
+                        div.innerHTML = `
+                            <h3>${livro.titulo}</h3>
+                            <p>Autor: ${livro.autor}</p>
+                            <p>Gênero: ${livro.genero}</p>
+                            <p>Ano: ${livro.ano}</p>
+                        `;
+                        container.appendChild(div);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

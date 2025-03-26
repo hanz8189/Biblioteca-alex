@@ -1,0 +1,22 @@
+{
+  "livros": [
+    {
+      "titulo": "As pessoas feias",
+      "autor": "Guilherme",
+      "genero": "Romance",
+      "ano": "1945"
+    },
+    {
+      "titulo": "Cavalo Branco",
+      "autor": "Nilton",
+      "genero": "Ação",
+      "ano": "2025"
+    },
+    {
+      "titulo": "Biblia sagrada",
+      "autor": "Deus",
+      "genero": "Cristao",
+      "ano": "0"
+    }
+  ]
+}

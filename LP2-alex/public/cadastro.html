@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Cadastrar Livro</h1>
+    <form id="formLivro">
+        <input type="text" id="titulo" placeholder="Título" required>
+        <input type="text" id="autor" placeholder="Autor" required>
+        <input type="text" id="genero" placeholder="Gênero" required>
+        <input type="number" id="ano" placeholder="Ano" required>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <a href="/">Voltar</a>
+    <script>
+        document.getElementById('formLivro').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const livro = {
+                titulo: document.getElementById('titulo').value,
+                autor: document.getElementById('autor').value,
+                genero: document.getElementById('genero').value,
+                ano: document.getElementById('ano').value
+            };
+            fetch('/api/livros', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(livro)
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Erro:', error));
+        });
+    </script>
+</body>
+</html>
